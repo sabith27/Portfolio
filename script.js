@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mobile Menu Toggle
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
-    
+
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('active');
         navLinks.classList.toggle('active');
@@ -16,10 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Header Scroll Effect & Active Link Highlight
+    // Header Scroll Effect & Active Link Highlight & Scroll to Top
     const header = document.querySelector('.header');
     const sections = document.querySelectorAll('section');
     const navItems = document.querySelectorAll('.nav-links li a');
+    const scrollTopBtn = document.getElementById('scrollTop');
 
     window.addEventListener('scroll', () => {
         // Header background effect
@@ -27,6 +28,13 @@ document.addEventListener('DOMContentLoaded', () => {
             header.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');
+        }
+
+        // Scroll to Top visibility
+        if (window.scrollY > 300) {
+            scrollTopBtn?.classList.remove('disabled');
+        } else {
+            scrollTopBtn?.classList.add('disabled');
         }
 
         // Active link highlighting based on scroll position
@@ -49,13 +57,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Scroll Animation - Intersection Observer
     const faders = document.querySelectorAll('.fade-in');
-    
+
     const appearOptions = {
         threshold: 0.15,
         rootMargin: "0px 0px -50px 0px"
     };
 
-    const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+    const appearOnScroll = new IntersectionObserver(function (entries, observer) {
         entries.forEach(entry => {
             if (!entry.isIntersecting) {
                 return;
@@ -69,4 +77,44 @@ document.addEventListener('DOMContentLoaded', () => {
     faders.forEach(fader => {
         appearOnScroll.observe(fader);
     });
+
+    // EmailJS Form Submission
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // These IDs from the previous steps
+            const btn = document.getElementById('submit-btn');
+            const originalBtnText = btn.innerHTML;
+            btn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
+
+            // TODO: Replace with your EmailJS service ID and template ID
+            const serviceID = 'service_a5w0jcz';
+            const templateID = 'template_c5cqei5';
+
+            emailjs.sendForm(serviceID, templateID, this)
+                .then(() => {
+                    btn.innerHTML = 'Message Sent! <i class="fas fa-check"></i>';
+                    btn.style.backgroundColor = '#4CAF50';
+                    btn.style.color = '#fff';
+                    contactForm.reset();
+
+                    setTimeout(() => {
+                        btn.innerHTML = originalBtnText;
+                        btn.style.backgroundColor = '';
+                        btn.style.color = '';
+                    }, 3000);
+                }, (err) => {
+                    btn.innerHTML = 'Error! <i class="fas fa-times"></i>';
+                    btn.style.backgroundColor = '#f44336';
+                    console.log(JSON.stringify(err));
+
+                    setTimeout(() => {
+                        btn.innerHTML = originalBtnText;
+                        btn.style.backgroundColor = '';
+                    }, 3000);
+                });
+        });
+    }
 });
