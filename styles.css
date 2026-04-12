@@ -54,7 +54,7 @@ ul {
 .section-bg {
     background-color: var(--bg-alt);
     background: linear-gradient(rgba(248, 250, 252, 0.85), rgba(248, 250, 252, 0.85)),
-                url('./assets/images/qa-section-bg.png') center/cover no-repeat fixed;
+                url('./qa-section-bg.png') center/cover no-repeat fixed;
 }
 
 section {
@@ -224,7 +224,7 @@ p {
     align-items: center;
     padding-top: 80px;
     background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)),
-                url('./assets/images/custom-qa-bg.jpg') center/cover no-repeat fixed;
+                url('./custom-qa-bg.jpg') center/cover no-repeat fixed;
 }
 
 .hero-content {
@@ -501,7 +501,7 @@ p {
 /* Resume Section */
 .resume {
     background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)),
-                url('./assets/images/qa-resume-bg.png') center/cover no-repeat fixed;
+                url('./qa-resume-bg.png') center/cover no-repeat fixed;
 }
 .resume-content {
     display: grid;
